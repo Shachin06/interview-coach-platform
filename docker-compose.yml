@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Primary PostgreSQL database
+  db:
+    image: postgres:15-alpine
+    container_name: coach-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: interviewdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Redis cache for sessions
+  redis:
+    image: redis:7-alpine
+    container_name: coach-cache
+    ports:
+      - "6379:6379"
+
+  # MinIO container (local S3 replacement)
+  minio:
+    image: minio/minio
+    container_name: coach-storage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpassword
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  postgres_data:
+  minio_data:

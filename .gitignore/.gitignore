@@ -1,0 +1,31 @@
+# Java
+target/
+*.class
+*.jar
+
+# Maven
+.mvn/
+apache-maven-3.9.6/
+
+# JDK
+jdk/
+
+# Node
+node_modules/
+
+# React
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
